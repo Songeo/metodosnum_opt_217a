@@ -38,9 +38,9 @@ main(){
         double res4_d = fabs(res4_c)/fabs(res4_a);
 
 
-	printf("operacion  valor a 8 \t\t aritmetica \t error abs \t error r \n");
-	printf("      X-Y %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res1_a, res1_b, res1_c, res1_d);
-	printf("      X/Y %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res2_a, res2_b, res2_c, res2_d);
-	printf("  (X-U)/W %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res3_a, res3_b, res3_c, res3_d);
-        printf("    (U+V) %5.8f \t %1.5f \t %1.8f \t %1.8f \n", res4_a, res4_b, res4_c, res4_d);
+	printf("operacion \t valor a 8 \t\t aritmetica \t error abs \t error r \n");
+	printf("      X-Y \t %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res1_a, res1_b, res1_c, res1_d);
+	printf("      X/Y \t %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res2_a, res2_b, res2_c, res2_d);
+	printf("  (X-U)/W \t %4.8f \t\t %1.5f \t %1.8f \t %1.8f \n", res3_a, res3_b, res3_c, res3_d);
+        printf("    (U+V) \t %5.8f \t %1.5f \t %1.8f \t %1.8f \n", res4_a, res4_b, res4_c, res4_d);
 }
