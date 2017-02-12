@@ -1,10 +1,12 @@
-// Tarea 2
-// Sonia Mendizabal 
+Tarea 2
+105720
+Sonia Mendizabal 
 
+1. Investiga lo que quieren decir las letras EOF. ¿Por qué se debe definir c como int?
 
-// 1. Investiga lo que quieren decir las letras EOF. ¿Por qué se debe definir c como int?
+2. Modifica main para que sólo se llame una vez a la función getchar()
 
-// ‘End Of File’: generalmente es entero -1
-// Es una macro que define un entero no negativo producto 
-// de varias funciones para determinar el final de un archivo. 
-// Similar a ctrl + D
+3. Utiliza getchar para escribir un programa que cuente el número de caracteres.
+Al dar enter (salto de línea) el programa termina.
+
+4) Modifica el programa de 3) para que cuente el numero de lineas dado un archivo de stdin

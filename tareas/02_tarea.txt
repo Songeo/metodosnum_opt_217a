@@ -110,7 +110,7 @@ int main(void){
             printf("Char ");
             putchar(c);
             printf("\n");
-            lineas++
+            lineas++;
         }
         n++;
         

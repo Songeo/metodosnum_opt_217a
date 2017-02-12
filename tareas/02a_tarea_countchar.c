@@ -1,19 +1,5 @@
 // Tarea 2
-// Sonia Mendizabal 
-
-
-// 1. Investiga lo que quieren decir las letras EOF. ¿Por qué se debe definir c como int?
-
-// ‘End Of File’: generalmente es entero -1
-// Es una macro que define un entero no negativo producto 
-// de varias funciones para determinar el final de un archivo. 
-// Similar a ctrl + D
-
-// Se debe definir c como integer por que la
-// función regresa un valor int. Por lo tanto,
-// la comparación debe ser un valor entero. 
-// De lo contrario siempre es diferente de EOC y 
-// el ciclo no acaba. 
+// Sonia Mendizabal  
 
 // 2. Modifica main para que sólo se llame una vez a la función getchar()
 
@@ -24,7 +10,7 @@
 #include <string.h>
 
 int main(void){
-    char str[100], aux;
+    char str[100];
     int c, n = 0, len;
     
     //while( (c = getchar()) != EOF){   
