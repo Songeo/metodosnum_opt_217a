@@ -1,0 +1,459 @@
+---
+title: 'Guía C'
+output: html_document
+---
+
+
+### Introducción
+
+Tipos de variables en C:
+
+  - **char:** entera 8 bits = 1 bytes
+  - **int:** entera 32 bits = 4 bytes
+  - **float:** punto flotante 32 bits = 4 bytes
+  - **double:** punto flotante 64 bits = 8 bytes
+  
+Al definir o declarar variables indicamos: su tamaño, 
+el rango de valores y las operaciones que es posible aplicarles.
+
+
+Para imprimir variables es necesario indicar que tipo de caracter
+es:
+
+  - `%c`: imprime caracteres
+  
+  - `%d`: imprime variables double que incluye enteros
+  
+  - `%1.9f`: variable_double1 como punto flotante con 9 decimales
+  
+  - `%1.9e`: notación exponencial con 9 decimales
+  
+  
+El valor `DBL_MAX` del archivo `<float.h>` es el número positivo
+más grande.
+
+
+**- Underflow:** números más chicos que el umbral $10^{-134}\approx 2^{-1023}$
+se les asigna el número cero.
+
+**- Overflow:** números más grandes que el umbral $10^{308}\approx 2^{1024}$
+se les asigna el valor INF.
+
+
+```
+Valor de variable 1: 0.000000e+00 // long double variable1 = 2.22e-326;
+Valor de variable2 inf // long double variable2 = 1e309;
+```
+
+**Epsilon** de la maquina es $\epsilon = 1.11\cdot10^{-16}\approx 2^{-53}$, en 
+C se puede ver como:
+```
+Valor de epsilon de la máquina 1.110223e-16
+````
+
+De la librería `<math.h>` que se agrega `-lm`al final, se usan 
+las siguientes funciones:
+
+  - `truncf`: entero más cercano, no mayor al argumento
+
+  - `fabs`: valor absoluto del argumento
+
+
+
+Es posible convertir de variable double a entera. Las operaciones
+de double se heredan con enteros. 
+
+
+### Operadores
+
+
+Las funciones con **doble operador** se modifican dependiendo de la posición.
+Por ejemplo, el operador `++`:
+
+  - `i++`: la suma de uno más se realiza al final de la operación
+  
+  - `++i`: la suma de uno más se realiza antes de la operación
+
+
+```
+i = 12
+Valor de i antes de dar valor a j: 12
+Valor de i después de dar valor a j con i++: 13
+Valor de j con i++: 17
+
+i = 12
+Valor de i antes de dar valor a j: 12
+Valor de i después de dar valor a j con ++i: 13
+Valor de j con ++i: 18
+```
+
+Operadores **lógicos** o relacionales pueden realizarse 
+pero al imprimirse se definen como `int` o `double`.
+
+Se pueden definir variables con `#define nombre_var var`. 
+
+
+### Funciones particulares
+
+#### **`for`** 
+
+Se define de la siguiente forma:
+
+```
+for(contador = LIMITE_INFERIOR; contador < LIMITE_SUPERIOR; contador = contador+1)
+for(contador = LIMITE_INFERIOR; contador < LIMITE_SUPERIOR; contador++)
+```
+
+#### **`while`** 
+
+Mientras la condicion sea 1 sigue. En cero se rompe el while.
+
+```
+while(variable - 1){ // En el último valor variable - 1 = 0 como false
+  printf("valor de variable = %d\n", variable);
+  --variable;
+  }
+```
+
+#### **`if`** 
+
+La función se define por una condición. Pero una
+forma alternativa es usando `?`.
+```
+if(variable1 <= 10)
+(variable1 <= 10) ? variable1 : 0;
+```
+
+
+
+#### **`switch`** 
+
+En este caso se asignan diferentes condiciones y 
+en caso de no tener break, se sigue a la siguiente condición. 
+
+```
+switch(variable1){
+        case 0:
+        case -10:
+        default:
+```
+
+
+
+### Structs
+
+Es un tipo de datos que nos ayuda a agrupar información.
+Primero se define como `struct`, así como los tipos
+de valores que alamacenará. 
+Despues de nombran los structs y se inicializan.
+
+```
+struct fraccion{
+        int numerador;
+        char caracter;
+    }; //declaramos el nombre del struct con dos miembros: un int y un char
+struct fraccion f1,f2; //definimos y declaramos f: el struct fraccion
+f.numerador = -5; //inicializamos al miembro int
+```
+
+
+### Arrays 
+
+Otro tipo de datos para almacenar información son los
+arreglos. Que pueden ser multidimensionales.
+
+```
+int arreglo1[5]; //declaración y definición
+int arreglo2[5][10][2]; //declaración y definición
+int arreglo3[3] = {0}; // otra forma de incializar el arreglo
+```
+
+A definir un arrgelo con dimensión determinada $n$, se asignan el mismo
+número de bloques de memoria contiguos de tamaño `int` (4 bytes) que 
+en total son $4*n$ bytes.
+
+  - `sizeof` función de total de bytes de un arreglo. 
+  - `%ld` imprime long (l) asigned decimal (d)
+
+
+
+
+
+
+
+### Apuntadores
+
+Un apuntador es una variable que contiene el address de una variable.
+Con `*` se declara apuntador hacia una variable y 
+con `&` se tiene acceso a la dirección en memoria. 
+
+Un apuntador pesa el doble 
+
+```
+int *p; // definición y declaración de un apuntador (*) hacia una variable (p) tipo int.
+int variable = 5;            
+p = &variable; //inicializamos al apuntador p
+
+printf("Address de variable int: %p\n", &variable);
+printf("Accedemos al objeto con *p: %d\n", *p); // 5
+```
+
+  - `%p` imprime el apuntador o lugar en la memoria de la variable
+  - `*p` dereference p para acceder al valor de la variable del apuntador
+
+
+Los arreglos funcionan como apuntadores, con espacio reservado en memoria. 
+Para acceder al valor del arreglo se usa `arreglo[i]` o 
+bien `*(arreglo + i)` donde `i` representa cada valor del arreglo. 
+
+Los apuntadores deben apuntar a un tipo en particular de objeto. 
+Cada apuntador apunta a un tipo de dato específico.
+Aunque usando **cast** un 
+apuntador puede cambiar de tipo, por ejemplo:
+
+  - `(int *)apuntador` cast a un apuntador de tipo `int`
+  - `(void *)variable` cast a un apuntador de tipo de dato `void`
+  - `(long int)apuntador2` cast a un apuntadore de tipo `long int`
+
+En apuntadores `=` puede no funcionar la asignación debido al
+tipo de apuntador, por lo que se cambia con un cast definido en 
+los ejemplos anteriores. 
+
+
+
+### Strings
+
+Un dato tipo `string` es un arreglo de caracteres en el que la última posición 
+es el caracter nulo `\0`, que indica el final del string.
+
+```
+char string[] = "Hola, este es un string";
+```
+
+
+  - `'c'` tipo `char`
+  - `"c"` tipo `string`
+  - `%s` imprime el valor del arreglo tipo `string`
+  - `%c` imprime
+
+
+La forma en que se define un string es similar a un arreglo. De igual forma, 
+funciona como un apuntador. 
+
+Se usa `include<string.h>` para acceder a funciones de string:
+
+
+  - `strcpy(string2, string)` función que copia un string
+  - `strlen(string)` imprime la longitud de un string
+  
+En strings el operador `=` no funciona. Es por esto que las 
+funciones anteriores son útiles. 
+
+
+
+
+##### Arreglos de apuntadores
+
+Es común definir un arreglo de tamaño n de apuntadores `*arreglo[n]` 
+con n un valor positivo constante y entero.
+
+Una forma de seleccionar las posisicones del arreglo 
+cuando es multidimensional es `*(arr_mult[i] + j)` donde
+`j` es la posicion de columnas.
+
+
+También puede ser un arreglo de apuntadores 
+de caracteres `char *arreglo_str[n]` de tamaño n.
+
+En este caso, se hace referencia a los apuntadores
+de con `*` donde `*arreglo_str` recorre cada elemento del arreglo y 
+`**arreglo_str)` recorre cada caracter de de cada elemento del arreglo.
+
+
+
+### Macros
+
+En la fase de preprocesamiento de un programa se tienen 
+las siguientes opciones para definir elementos que 
+serviran para el procesamiento en el programa. 
+Se definen con `#`.
+
+##### **`#`**
+Transformación léxica a partir de directivas que permiten
+comunicarse con el preprocesador y realizar sustituciones **macro** (#define), 
+inclusión de archivos (#<.h>) o compilación condicional.
+
+```
+# include<stdio.h>
+# define TAMANIO 100
+```
+
+
+##### **`#define identificador(lista-de-identificadores) secuencia-token`**
+Es una definición macro con parámetros dados en lista de identificadores
+o nombres. 
+
+```
+# define MAX(A,B) ((A) > (B) ? (A) : (B))
+//MAX es el identificador
+//A,B es la lista de identificadores separados por comas
+//((A) > (B) ? (A) : (B)) es la secuencia-token
+```
+
+Es posible definir macros con argumentos, de modo que el
+texto reemplazado sea distinto para diferentes 
+llamados a la macro.  Los argumentos de la macro y lo que regresa la 
+misma pueden ser de cualquier tipo o incluso ser apuntadores.
+
+
+  1. En una macro, los argumentos son evaluados dos veces, 
+  uno para la prueba y otro para producir el resultado.
+  
+  2. El uso de paréntesis es necesario.
+  
+  3. Llamar más de una vez a la macro.
+
+### Funciones
+
+a. El prototipo de las funciones se declaran al inicio del programa.
+
+Aquí se declara el nombre de la función, 
+parámetros que recibe y tipo de datos que regresa.
+
+```
+double funcion(double var);
+```
+
+b. Definición de la función main.
+
+```
+int main(){
+    return 0;
+}
+```
+
+c. Definición de funciones secundarias.
+
+```
+void funcion2(double result){
+    printf("Valor del epsilon de la máquina: %e\n", result);
+}
+```
+
+En las funciones los parámetros y nombres de cada función son locales. 
+Es decir, únicamente se crean las variables cuando la función 
+corre y se borran al terminar. 
+
+Además, es irrelevante el orden en el que se definan las funciones.
+
+
+
+**- Argumentos por valor:** la función no puede modificar 
+directamente una variable que se define en otra función diferente 
+desde donde se hace el llamado. Esto porque las funciones toman 
+definiciones locales.
+
+**- Argumentos por referencia:** la función puede modificar
+directamente variables fuera de la función con argumentos 
+por referencia y se usan apuntadores y direcciones de memoria (&). 
+
+
+**- Argumentos de línea de comandos:** aargumentos que recibe la función main 
+de la línea de comandos:
+
+  a. `argc`: es el número de argumentos.
+  b. `argv`: son los argumentos recibidos.
+
+```
+./ejemplo.out -18 "Ejemplo para paso de argumentos a main"
+```
+
+
+### Storage Classes
+
+Un programa, en particular la función main, 
+tiene un espacio definido en el sistema operativo para
+compilarlo y ejecutarlo.
+
+
+
+#### **Stack Memory:** 
+
+La estructura de datos que generalmente se implementa
+para este espacio de memoria. 
+
+Aloja memoria automáticamente al llamar a una función y 
+la desaloja automáticamente al terminar la ejecución de la misma
+
+El alojamiento y desalojamiento está optimizado en
+tiempo y espacio. Por esto hay un límite para el tamaño 
+de las variables que pueden ser alojadas.
+
+Dentro de este espacio reservado se toman bloques para las
+variables definidas:
+
+  - Allocated: variable con un bloque de memoria definido para almacenar su valor.
+  
+  - Deallocated: variable sin bloque de memoria definido para almacenar su valor. El 
+  bloque es reclamado por el sistema. 
+  
+Tipos de almacenamiento:
+
+  - Automatic: `auto` tipo de almacenamiento designado para 
+  todas las variables que son locales a una función.
+
+  - External linkage: `extern` tipo de almacenamiento para variables 
+  externas a las funciones y con uso global. Estas variables
+  solo deben tener una definición. 
+
+
+**Declarar** variables o arreglos que se definirán posteriormente.
+```
+extern int variable_externa; // Variables
+extern int arreglo[]; // Arreglos
+```
+
+**Definir** variables o arreglos a los que se les reserva almacenamiento para el valor o
+valores que tomen.
+```
+int variable_externa = -2; // Variables
+int arreglo[10]; // Arreglos
+```
+
+#### **Heap Memory:** 
+
+Memoria dinámica. Aloja un bloque de memoria de un tamaño definido y
+este bloque continúa hasta que se indique lo contrario. 
+
+Área de memoria que está disponible para el uso del programa 
+con límite en tamaño para las variables de acuerdo a las 
+limitaciones físicas de cada máquina.
+
+  - El tiempo de vida de las variables es modificado. Las variables
+  persisten entre llamados a funciones
+
+  - El tamaño de la memoria alojada en la memoria puede ser 
+  controlada con más detalle.
+  
+
+Para alojar y desalojar variables se usan las siguientes funciones:
+
+  - `malloc`: apuntador a un bloque de memoria heap. 
+  
+  ```
+  apuntador = malloc(sizeof(int));
+  ```
+  
+  - `free`: recibe el apuntador y regresa el bloque para reuso. 
+  
+  ```
+  free(apuntador);
+  ```
+  
+  - `assert`: indica valores de malloc distintos de NULL. En caso de 
+  ser valor nulo se aborta el programa y se imprime un mensaje de error. 
+  
+  ```
+  assert( apuntador != NULL);
+  ```
+  
